@@ -1,11 +1,17 @@
 import shutil
 import os
 import csv
+import tkinter.filedialog
 import patoolib
+import tkinter
 
-filename = "submission.zip"
-extract_dir = "Extract"
-grader_file = "grader_list.csv"
+submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
+grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
+extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
+
+
+
+
 
 # # Unzip submission file
 # shutil.unpack_archive(filename, extract_dir)
