@@ -7,6 +7,9 @@ import tkinter.filedialog
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
 grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
 extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
+# Make sure the extract folder is empty to prevent modifying existing file 
+if os.listdir(extract_dir):
+    extract_dir = os.path.join(extract_dir, "Extract")
 
 # Unzip submission file
 shutil.unpack_archive(submission_file, extract_dir)
