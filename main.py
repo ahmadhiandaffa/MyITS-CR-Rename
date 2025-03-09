@@ -1,7 +1,7 @@
 import shutil
 import os
 import csv
-import tkinter.dialog
+import tkinter.filedialog
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
