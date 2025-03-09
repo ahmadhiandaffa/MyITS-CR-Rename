@@ -62,7 +62,8 @@ for student in student_list:
     old_path = os.path.join(extract_dir, old_name)
     new_name = kelas + "_" + grader + "_" + nrp[-3:] + "_" + name 
     new_path = os.path.join(extract_dir, new_name)
-    os.rename(old_path, new_path)
+    if os.path.exists(old_path):
+        os.rename(old_path, new_path)
 
 # Extract file in each folder
 folders = os.listdir(extract_dir)
