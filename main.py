@@ -26,8 +26,10 @@ for folder in folders:
 
 # Read grader file
 with open(grader_file) as fp:
-    reader = csv.reader(fp)
-    next(reader, None)  # skip the headers
+    reader = csv.reader(fp, delimiter=",") 
+    header = next(reader, None)  # skip the headers
+    if len(header) == 1: # Wrong delimiter
+        reader = csv.reader(fp, delimiter=";")
     student_list = [row for row in reader]
 
 # Add NRP & grader to folder name
