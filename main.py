@@ -28,11 +28,11 @@ with open(grader_file) as fp:
 
 # Add NRP & grader to folder name
 for student in student_list:
-    nrp, name, grader = student
+    nrp, name, kelas, grader = student
 
     old_name = name
     old_path = os.path.join(extract_dir, old_name)
-    new_name = grader + "_" + nrp[-3:] + "_" + name 
+    new_name = kelas + "_" + grader + "_" + nrp[-3:] + "_" + name 
     new_path = os.path.join(extract_dir, new_name)
     os.rename(old_path, new_path)
 
