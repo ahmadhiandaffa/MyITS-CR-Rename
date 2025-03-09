@@ -1,7 +1,7 @@
 import shutil
 import os
 import csv
-import tkinter
+import tkinter.dialog
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
@@ -46,6 +46,4 @@ for folder in folders:
         _, extension = os.path.splitext(file)
         if extension == ".zip":
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
-            os.remove(file_path) 
-        else:
-            continue
+            os.remove(file_path)
