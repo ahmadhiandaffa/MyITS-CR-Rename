@@ -2,6 +2,7 @@ import shutil
 import os
 import csv
 import tkinter.filedialog
+import patoolib
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
@@ -49,4 +50,7 @@ for folder in folders:
         _, extension = os.path.splitext(file)
         if extension == ".zip":
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
+            os.remove(file_path)
+        elif extension == ".rar":
+            patoolib.extract_archive(file_path, program="unrarw64.exe" ,outdir=folder_path)
             os.remove(file_path)
