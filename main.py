@@ -23,7 +23,7 @@ if not shutil.which("unrar.exe"):
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
 if submission_file == "":
     sys.exit()
-grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
+grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader (.csv)")
 if grader_file == "":
     sys.exit()
 extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
