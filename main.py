@@ -1,7 +1,9 @@
-import shutil
 import os
+import sys
 import csv
 import tkinter.filedialog
+import shutil
+import tkinter.messagebox
 from rarfile import RarFile
 
 # Set correct path for WinRAR
@@ -10,11 +12,23 @@ if not shutil.which("unrar.exe"):
     unrarpath  = os.path.join(winrarpath,"UnRAR.exe")
     if os.path.isdir(winrarpath) and os.path.exists(unrarpath):
         os.environ['PATH'] = os.environ.get('PATH','') + os.pathsep + winrarpath
+    else:
+        tkinter.messagebox.showerror(
+            title="Error", 
+            message="WinRAR belum terinstal. Download dan install WinRAR " + 
+                    "https://www.win-rar.com/download.html?&L=0")
+        sys.exit()
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
+if submission_file == "":
+    sys.exit()
 grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
+if grader_file == "":
+    sys.exit()
 extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
+if extract_dir == "":
+    sys.exit()
 
 # Make sure the extract folder is empty to prevent modifying existing file 
 if os.listdir(extract_dir):
@@ -62,7 +76,7 @@ for folder in folders:
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
             os.remove(file_path)
         elif extension == ".rar":
-            # patoolib.extract_archive(file_path, program="unrarw64.exe" ,outdir=folder_path)
             RarFile(file_path).extractall(path=folder_path)
             os.remove(file_path)
 
+tkinter.messagebox.showinfo(title="Success", message="Proses extract dan rename berhasil dilakukan")
