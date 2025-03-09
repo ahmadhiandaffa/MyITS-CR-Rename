@@ -2,12 +2,20 @@ import shutil
 import os
 import csv
 import tkinter.filedialog
-import patoolib
+from rarfile import RarFile
+
+# Set correct path for WinRAR
+if not shutil.which("unrar.exe"):
+    winrarpath = os.path.join(os.environ.get("ProgramFiles",""),"WinRAR")
+    unrarpath  = os.path.join(winrarpath,"UnRAR.exe")
+    if os.path.isdir(winrarpath) and os.path.exists(unrarpath):
+        os.environ['PATH'] = os.environ.get('PATH','') + os.pathsep + winrarpath
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
 grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
 extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
+
 # Make sure the extract folder is empty to prevent modifying existing file 
 if os.listdir(extract_dir):
     extract_dir = os.path.join(extract_dir, "Extract")
@@ -54,5 +62,7 @@ for folder in folders:
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
             os.remove(file_path)
         elif extension == ".rar":
-            patoolib.extract_archive(file_path, program="unrarw64.exe" ,outdir=folder_path)
+            # patoolib.extract_archive(file_path, program="unrarw64.exe" ,outdir=folder_path)
+            RarFile(file_path).extractall(path=folder_path)
             os.remove(file_path)
+
