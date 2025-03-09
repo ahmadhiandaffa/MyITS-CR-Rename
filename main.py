@@ -2,8 +2,6 @@ import shutil
 import os
 import csv
 import tkinter
-import patoolib
-import tkinter
 
 # Show message dialog for choosing files
 submission_file = tkinter.filedialog.askopenfilename(title="Pilih file submission (.zip)")
@@ -11,7 +9,7 @@ grader_file     = tkinter.filedialog.askopenfilename(title="Pilih file grader")
 extract_dir     = tkinter.filedialog.askdirectory(title="Pilih folder untuk extract")
 
 # Unzip submission file
-shutil.unpack_archive(filename, extract_dir)
+shutil.unpack_archive(submission_file, extract_dir)
 
 # Remove unnecessary folder name part
 folders = os.listdir(extract_dir)
@@ -47,7 +45,6 @@ for folder in folders:
         file_path = os.path.join(folder_path, file)
         _, extension = os.path.splitext(file)
         if extension == ".zip":
-            print(file)
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
             os.remove(file_path) 
         else:
