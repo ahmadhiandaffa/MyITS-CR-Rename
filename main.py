@@ -67,6 +67,7 @@ for student in student_list:
 
 # Extract file in each folder
 folders = os.listdir(extract_dir)
+fail_list = []
 for folder in folders:
     folder_path = os.path.join(extract_dir, folder)
     files = os.listdir(folder_path)
@@ -77,7 +78,14 @@ for folder in folders:
             shutil.unpack_archive(file_path, format="zip", extract_dir=folder_path)
             os.remove(file_path)
         elif extension == ".rar":
-            RarFile(file_path).extractall(path=folder_path)
-            os.remove(file_path)
+            try:
+                RarFile(file_path).extractall(path=folder_path)
+                os.remove(file_path)
+            except:
+                fail_list.append(file)
+                continue
 
+fail_list = ", ".join(fail_list)
+
+tkinter.messagebox.showwarning(title="Warning", message=f"File {fail_list} gagal untuk diextract secara otomatis oleh program")
 tkinter.messagebox.showinfo(title="Success", message="Proses extract dan rename berhasil dilakukan")
